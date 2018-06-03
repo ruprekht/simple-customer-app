@@ -1,0 +1,57 @@
+<div class="container">
+  <div *ngIf="!_loaded">
+    Loading...
+  </div>
+
+  <div *ngIf="_loaded">
+      <div class="row columns">
+        <h1>Customer Form</h1>
+      </div>
+    
+      <form [formGroup]="customerForm" (ngSubmit)="saveCustomer(customerForm.value)">
+        <div class="row">
+          <div class="columns small-12 medium-6">
+            <label>First Name
+              <input type="text" name="firstName" [ngModel]="_customer.name.first" [formControl]="customerForm.controls['firstName']">
+            </label>
+            <div class="alert" *ngIf="!customerForm.controls['firstName'].valid && customerForm.controls['firstName'].touched">You must specify the first name.</div>
+          </div>
+          <div class="columns small-12 medium-6">
+            <label>Last Name
+              <input type="text" name="lastName" [ngModel]="_customer.name.last" [formControl]="customerForm.controls['lastName']">
+            </label>
+            <div class="alert" *ngIf="!customerForm.controls['lastName'].valid && customerForm.controls['lastName'].touched">You must specify the last name.</div>
+          </div>
+        </div>
+        <div class="row"> 
+          <div class="columns small-12 medium-6">
+            <label>Birthday
+              <input type="text" name="birthday" [ngModel]="_customer.birthday | date:'shortDate'" [formControl]="customerForm.controls['birthday']">
+            </label>
+            <div class="alert" *ngIf="customerForm.controls['birthday'].touched && !customerForm.controls['birthday'].valid">You must specify the birthday.</div>
+          </div>
+          <div class="columns small-12 medium-6">
+            <label for="gender">Gender</label>
+            <select id="gender" [formControl]="customerForm.controls['gender']" [ngModel]="_customer.gender">
+                <option *ngFor="let g of _genders" [ngValue]="g">{{ g }}</option>
+            </select>
+            <div class="alert" *ngIf="customerForm.controls['birthday'].touched && !customerForm.controls['gender'].valid">You must specify the gender.</div>
+          </div>
+        </div>
+        
+        <div>
+            <div class="pull-left">
+                <i class="action-btn fa fa-arrow-circle-left fa-3x" (click)="goBack()"></i>
+            </div>            
+            <div class="pull-right" [hidden]="!customerForm.valid">
+                <i class="action-btn fa fa-check-circle fa-3x" (click)="saveCustomer(customerForm.value)" ></i>
+            </div>
+            <div class="pull-right" [hidden]="!_deletable">
+                <i class="action-btn fa fa-times-circle fa-3x" (click)="onDelete()"></i>
+            </div>
+            
+        </div>
+        
+      </form>
+    </div>
+</div>

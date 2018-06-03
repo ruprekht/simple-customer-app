@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>Customers</h1>
+  <div>
+    <ul class="responsive-table">
+      <li class="btn-placeholder">
+        <div class="pull-left">
+            <i class="add-new fa fa-plus-square fa-3x" (click)="onCreate()"></i>
+        </div>
+      </li>
+      <li class="table-header">
+        <div class="col col-1">Customer Id</div>
+        <div class="col col-2">Customer Name</div>
+        <div class="col col-3">Gender</div>
+        <div class="col col-4">Birthday</div>
+      </li>
+      <li class="table-row" *ngFor="let customer of _customers" (click)="onSelect(customer._id)">
+        <div class="col col-1" data-label="Customer Id">{{customer.customerID}}</div>
+        <div class="col col-2" data-label="Customer Name">{{customer.name.first}} {{customer.name.last}}</div>
+        <div class="col col-3" data-label="Gender">{{customer.gender}}</div>
+        <div class="col col-4" data-label="Birthday">{{customer.birthday | date:'mediumDate' }}</div>
+      </li>
+      </ul>
+  </div> 
+</div>
